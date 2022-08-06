@@ -2,6 +2,7 @@ import time
 
 from selenium.webdriver.chrome import webdriver
 from selenium.webdriver.common.by import By
+from selenium.common.exceptions import NoSuchElementException
 
 
 def setup():
@@ -24,7 +25,7 @@ def test_basic_search(driver):
     # ввод текста
     search_input_locator = By.CSS_SELECTOR, 'input.tm-input-text-decorated__input'
     search_input = driver.find_element(*search_input_locator)
-    text_to_search = 'QA'
+    text_to_search = 'asdffgfdsa'
     search_input.send_keys(text_to_search)
     time.sleep(2)
 
@@ -49,7 +50,9 @@ def test_basic_search(driver):
 
 if __name__ == '__main__':
     driver = setup()
-
+try:
     test_basic_search(driver)
+except NoSuchElementException:
+    print('Test failed')
 
     tear_down(driver)
