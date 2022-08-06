@@ -17,7 +17,7 @@ time.sleep(2)
 # ввод текста
 search_input_locator = By.CSS_SELECTOR, 'input.tm-input-text-decorated__input'
 search_input = driver.find_element(*search_input_locator)
-text_to_search = 'QA'
+text_to_search = 'asdfgfdsa'
 search_input.send_keys(text_to_search)
 time.sleep(2)
 
@@ -33,11 +33,10 @@ articles = driver.find_elements(*article_locator)
 print(f'number of articles is {len(articles)}')
 time.sleep(1)
 
-# кол-во страниц
-last_page_locator = By.XPATH, '(//*[@class="tm-pagination__page"])[last()]'
-last_page_number = driver.find_element(*last_page_locator)
-element_text = last_page_number.text
-print(f'number of pages is {element_text}')
+# проверяем текст, когда поиск не дал результатов
+empty_res_locator = By.XPATH, '(//*[@data-test-id="empty-placeholder-text"])'
+empty_results = driver.find_element(*empty_res_locator)
+print(f'Text on page: {empty_results.text}')
 time.sleep(1)
 
 driver.quit()
