@@ -1,21 +1,7 @@
 import time
 
-from selenium.webdriver.chrome import webdriver
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
-
-def setup():
-    print('setup')
-    driver = webdriver.WebDriver(executable_path="chromedriver.exe")
-    driver.get("https://habr.com")
-    time.sleep(2)
-
-    return driver
-
-def tear_down(driver):
-    print('tear_down')
-    driver.quit()
-
 
 def count_pages_number(driver):
     last_page_locator = By.XPATH, '(//*[@class="tm-pagination__page"])[last()]'
