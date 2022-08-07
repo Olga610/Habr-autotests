@@ -1,44 +1,30 @@
-import time
-
-from selenium.webdriver.common.by import By
-
-from first_try import setup, tear_down
+from first_try import *
 
 
 def test_empty_search(driver):
-    # поиск
-    search_button_locator = By.CLASS_NAME, 'tm-header-user-menu__search'
-    search_button = driver.find_element(*search_button_locator)
-    search_button.click()
-    time.sleep(2)
+    click_search_form(driver)
 
-    # ввод текста
-    search_input_locator = By.CSS_SELECTOR, 'input.tm-input-text-decorated__input'
-    search_input = driver.find_element(*search_input_locator)
-    text_to_search = 'asdfgfdsa'
-    search_input.send_keys(text_to_search)
-    time.sleep(2)
+    type_text(driver, 'asdfgfdsa')
 
-    # нажатие на иконку поиска
-    search_icon_locator = By.CLASS_NAME, 'tm-search__icon'
-    search_icon = driver.find_element(*search_icon_locator)
-    search_icon.click()
-    time.sleep(2)
+    click_search_button(driver)
 
-    # кол-во записей
-    article_locator = By.TAG_NAME, 'article'
-    articles = driver.find_elements(*article_locator)
-    print(f'number of articles is {len(articles)}')
-    time.sleep(1)
+    count_articles_number(driver)
 
-    # проверяем текст, когда поиск не дал результатов
+    check_empty_page_text(driver)
+
+
+def check_empty_page_text(driver):
     empty_res_locator = By.XPATH, '(//*[@data-test-id="empty-placeholder-text"])'
     empty_results = driver.find_element(*empty_res_locator)
     print(f'Text on page: {empty_results.text}')
     time.sleep(1)
 
-
 if __name__ == '__main__':
-    driver = setup()
-    test_empty_search(driver)
-    tear_down(driver)
+    driver_object = setup()
+
+    try:
+        test_empty_search(driver_object)
+    except NoSuchElementException as error:
+        print('Test failed, {error}')
+
+    tear_down(driver_object)
