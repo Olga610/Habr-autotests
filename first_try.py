@@ -6,6 +6,7 @@ from selenium.common.exceptions import NoSuchElementException
 
 
 def setup():
+    print('setup')
     driver = webdriver.WebDriver(executable_path="chromedriver.exe")
     driver.get("https://habr.com")
     time.sleep(2)
@@ -13,7 +14,9 @@ def setup():
     return driver
 
 def tear_down(driver):
+    print('tear_down')
     driver.quit()
+
 
 def test_basic_search(driver):
     # поиск
@@ -25,7 +28,7 @@ def test_basic_search(driver):
     # ввод текста
     search_input_locator = By.CSS_SELECTOR, 'input.tm-input-text-decorated__input'
     search_input = driver.find_element(*search_input_locator)
-    text_to_search = 'asdffgfdsa'
+    text_to_search = 'QA'
     search_input.send_keys(text_to_search)
     time.sleep(2)
 
@@ -48,11 +51,13 @@ def test_basic_search(driver):
     print(f'number of pages is {element_text}')
     time.sleep(1)
 
+
 if __name__ == '__main__':
     driver = setup()
-try:
-    test_basic_search(driver)
-except NoSuchElementException:
-    print('Test failed')
+
+    try:
+        test_basic_search(driver)
+    except NoSuchElementException as error:
+        print(f'Test failed, reason {error}')
 
     tear_down(driver)
