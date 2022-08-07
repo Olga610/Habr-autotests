@@ -1,4 +1,4 @@
-from first_try import *
+from test_1 import *
 
 
 def test_empty_search(driver):
