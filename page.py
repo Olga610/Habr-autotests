@@ -10,6 +10,11 @@ def count_pages_number(driver):
     print(f'number of pages is {element_text}')
     time.sleep(1)
 
+def go_to_last_page(driver):
+    last_page_locator = By.XPATH, '(//*[@class="tm-pagination__page"])[last()]'
+    last_page = driver.find_element(*last_page_locator)
+    last_page.click()
+    time.sleep(6)
 
 def count_articles_number(driver):
     article_locator = By.TAG_NAME, 'article'
