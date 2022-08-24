@@ -3,6 +3,15 @@ from locators import *
 
 from selenium.common.exceptions import NoSuchElementException
 
+class MainPage:
+    url = "https://habr.com"
+
+    def __init__(self, webdriver):
+        self.__webdriver = webdriver
+
+    def open(self):
+        self.__webdriver.get(self.url)
+
 def count_pages_number(driver):
     last_page_number = driver.find_element(*last_page_locator)
     element_text = last_page_number.text
