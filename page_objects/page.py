@@ -1,7 +1,6 @@
 import time
-from locators import *
+from locators.locators import *
 
-from selenium.common.exceptions import NoSuchElementException
 
 class HabrBase:
     def __init__(self, webdriver):
