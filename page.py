@@ -12,7 +12,7 @@ class HabrBase:
         return self.webdriver.find_element(*last_page_locator)
 
     def count_pages_number(self):
-        return self.last_page_number.text
+        return int(self.last_page_number.text)
 
     def go_to_last_page(self):
         self.last_page_number.click()
