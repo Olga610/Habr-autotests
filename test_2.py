@@ -4,9 +4,11 @@ def test_empty_search(driver):
     page = MainPage(driver)
     page.open()
 
-    click_search_form(driver)
-    type_text(driver, 'asdfgfdsa')
-    click_search_button(driver)
-    count_articles_number(driver)
-    check_empty_page_text(driver)
+    page = page.click_search()
+
+    page.search('asdfgfdsa')
+
+    page.count_articles_number()
+
+    page.get_empty_page_text()
 

@@ -12,11 +12,12 @@ class MainPage:
         self.__webdriver.get(self.url)
 
     @property
-    def search_icon(self):
-        return self.__webdriver.find_element(*search_icon_locator)
+    def search_button(self):
+        return self.__webdriver.find_element(*search_button_locator)
 
     def click_search(self):
-        self.search_icon.click()
+        time.sleep(2)
+        self.search_button.click()
         time.sleep(2)
         return SearchResultsPage(self.__webdriver)
 
@@ -31,7 +32,7 @@ class SearchResultsPage:
 
     @property
     def search_button(self):
-        return self.__webdriver.find_element(*search_button_locator)
+        return self.__webdriver.find_element(*search_icon_locator)
 
     def search(self, search_text):
         self.search_input.send_keys(search_text)

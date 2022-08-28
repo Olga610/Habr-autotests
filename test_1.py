@@ -4,8 +4,10 @@ def test_basic_search(driver):
     page = MainPage(driver)
     page.open()
 
-    click_search_form(driver)
-    type_text(driver, 'QA')
-    click_search_button(driver)
-    count_articles_number(driver)
-    count_pages_number(driver)
+    page = page.click_search()
+
+    page.search('QA')
+
+    print(page.count_articles_number())
+
+    print(page.count_pages_number())
