@@ -8,7 +8,6 @@ class MainPage:
 
     def __init__(self, webdriver):
         self.__webdriver = webdriver
-
     def open(self):
         self.__webdriver.get(self.url)
 
@@ -19,12 +18,10 @@ class MainPage:
     def click_search(self):
         self.search_icon.click()
         time.sleep(2)
-
         return SearchResultsPage(self.__webdriver)
 
 class SearchResultsPage:
     url = "https://habr.com/ru/search"
-
     def __init__(self, webdriver):
         self.__webdriver = webdriver
 
@@ -35,7 +32,6 @@ class SearchResultsPage:
     @property
     def search_button(self):
         return self.__webdriver.find_element(*search_button_locator)
-
 
     def search(self, search_text):
         self.search_input.send_keys(search_text)
@@ -63,6 +59,6 @@ class SearchResultsPage:
     def empty_result_banner(self):
         return self.__webdriver.find_element(*empty_res_locator)
 
-    def check_empty_page_text(self):
-        return self.empty_results.text
+    def get_empty_page_text(self):
+        return self.empty_result_banner.text
 
