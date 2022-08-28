@@ -6,7 +6,7 @@ def test_pagination_to_last_page(driver):
 
     page = page.click_search()
 
-    page.search('Selenium')
+    page.search('selenium')
 
     page.go_to_last_page()
 
