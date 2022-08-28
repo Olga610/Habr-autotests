@@ -38,29 +38,31 @@ class SearchResultsPage:
 
 
     def search(self, search_text):
-        self.search_input.send_keys(text_to_search)
+        self.search_input.send_keys(search_text)
         self.search_button.click()
-
         time.sleep(2)
 
+    @property
+    def last_page_number(self):
+        return self.__webdriver.find_element(*last_page_locator)
 
     def count_pages_number(self):
-        last_page_number = self.__webdriver.find_element(*last_page_locator)
-        element_text = last_page_number.text
-        print(f'number of pages is {element_text}')
-        time.sleep(1)
+        return self.last_page_number.text
 
     def go_to_last_page(self):
-        last_page = self.__webdriver.find_element(*last_page_locator)
-        last_page.click()
-        time.sleep(6)
+        self.last_page_number.click()
+
+    @property
+    def articles(self):
+       return self.__webdriver.find_elements(*article_locator)
 
     def count_articles_number(self):
-        articles = self.__webdriver.find_elements(*article_locator)
-        print(f'number of articles is {len(articles)}')
-        time.sleep(1)
+        return len(self.articles)
+
+    @property
+    def empty_result_banner(self):
+        return self.__webdriver.find_element(*empty_res_locator)
 
     def check_empty_page_text(self):
-        empty_results = self.__webdriver.find_element(*empty_res_locator)
-        print(f'Text on page: {empty_results.text}')
-        time.sleep(1)
+        return self.empty_results.text
+
