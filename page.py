@@ -24,6 +24,10 @@ class HabrBase:
     def count_articles_number(self):
         return len(self.articles)
 
+    @property
+    def current_url(self):
+        return self.webdriver.current_url
+
 class MainPage(HabrBase):
     url = "https://habr.com"
 
