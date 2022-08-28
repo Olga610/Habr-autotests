@@ -1,5 +1,3 @@
-from page_objects.page import *
-
 def test_articles_number_on_page(page):
     page.search('selenium')
 

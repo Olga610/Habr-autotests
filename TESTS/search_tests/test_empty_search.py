@@ -1,5 +1,3 @@
-from page_objects.page import *
-
 def test_empty_search(page):
     page.search('asdfgfdsa')
 

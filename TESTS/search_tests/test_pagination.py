@@ -1,5 +1,3 @@
-from page_objects.page import *
-
 def test_pagination_to_last_page(page):
     page.search('selenium')
     page.go_to_last_page()
