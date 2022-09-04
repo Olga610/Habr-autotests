@@ -1,6 +1,8 @@
 import time
 from locators.locators import *
 
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support.expected_conditions import *
 
 class HabrBase:
     url = 'https://habr.com'
@@ -59,7 +61,17 @@ class SearchPage(HabrBase):
     def search(self, search_text):
         self.search_input.send_keys(search_text)
         self.search_button.click()
-        time.sleep(2)
+
+        self.wait_results_or_empty()
+
+    def wait_results_or_empty(self):
+        # нужно ждать либо хотя бы одну статью, либо текст "результатов нет"
+        wait = WebDriverWait(self.webdriver, 2, pull_frequency=0.1)
+        wait.until(
+            any_of(
+                presence_of_element_located(article_locator),
+                presence_of_element_located(empty_res_locator)
+            ))
 
     @property
     def empty_result_banner(self):
