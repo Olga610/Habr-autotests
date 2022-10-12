@@ -1,6 +1,8 @@
 import time
 from locators.locators import *
 
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support.expected_conditions import *
 
 class HabrBase:
     url = 'https://habr.com'
@@ -40,10 +42,26 @@ class MainPage(HabrBase):
         return self.webdriver.find_element(*search_button_locator)
 
     def click_search(self):
-        time.sleep(2)
+        # ждем загрузку главной страницы
         self.search_button.click()
-        time.sleep(2)
-        return SearchPage(self.webdriver)
+
+        # ждем загрузку поисковой страницы
+        page = SearchPage(self.webdriver)
+        page.wait_full_page()
+        return page
+
+    def wait_full_page(self):
+        wait = WebDriverWait(self.webdriver, 5)
+
+        wait.until(
+            presence_of_all_elements_located(article_locator)
+        )
+
+    def open(self):
+        # код выполняется ДО
+        super().open()
+        # код выполняется ПОСЛЕ
+        self.wait_full_page()
 
 class SearchPage(HabrBase):
     url = 'https://habr.com/ru/search'
@@ -59,7 +77,17 @@ class SearchPage(HabrBase):
     def search(self, search_text):
         self.search_input.send_keys(search_text)
         self.search_button.click()
-        time.sleep(2)
+
+        self.wait_results_or_empty()
+
+    def wait_results_or_empty(self):
+        # нужно ждать либо хотя бы одну статью, либо текст "результатов нет"
+        wait = WebDriverWait(self.webdriver, 2, poll_frequency=0.1)
+        wait.until(
+            any_of(
+                presence_of_element_located(article_locator),
+                presence_of_element_located(empty_res_locator)
+            ))
 
     @property
     def empty_result_banner(self):
@@ -68,3 +96,18 @@ class SearchPage(HabrBase):
     def get_empty_page_text(self):
         return self.empty_result_banner.text
 
+    def wait_full_page(self):
+        wait = WebDriverWait(self.webdriver, 5)
+
+        wait.until(
+            visibility_of_element_located(search_input_locator)
+        )
+
+    def open(self):
+        # код выполняется ДО
+        super().open()
+        # код выполняется ПОСЛЕ
+        self.wait_full_page()
+
+    def is_page_shown(self):
+        return self.search_input.is_displayed()
