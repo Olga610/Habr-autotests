@@ -30,4 +30,3 @@ def test_list_of_other_services(page):
     expected = 4
 
     assert actual == expected
-    

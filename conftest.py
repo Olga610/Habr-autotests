@@ -24,13 +24,13 @@ def tear_down(driver):
     driver.quit()
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture
 def driver():
     obj = setup()
 
     yield obj
 
     tear_down(obj)
-    
+
 
     tear_down(obj)
