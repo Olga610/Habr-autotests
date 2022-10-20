@@ -20,4 +20,3 @@ class FeedbackPage(HabrBase):
     @property
     def personal_agreement_error_message(self):
         return self.webdriver.find_element(*agreement_error)
-    
