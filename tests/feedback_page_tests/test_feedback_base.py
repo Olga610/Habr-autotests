@@ -5,11 +5,13 @@ def test_errors_on_empty_fields(feedback_page):
 
     page.submit_button.click()
 
-    assert page.email_error_message.is_displayed()
-    assert page.message_error_message.is_displayed()
-    assert page.personal_agreement_error_message.is_displayed()
+    checks = [
+        feedback_page.email_error_message.is_displayed(),
+        feedback_page.email_error_message.is_displayed(),
+        feedback_page.personal_agreement_error_message.is_displayed()
+    ]
 
-
+    assert all(checks), f'Some errors are not shown: {checks}'
 
 def test_number_of_feedback_subject(feedback_page):
     pass
