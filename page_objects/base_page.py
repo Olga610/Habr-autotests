@@ -44,4 +44,8 @@ class HabrBase:
 
         driver.switch_to.window(tabs[new_index])
 
-
+    def wait_full_page(self):
+        """
+        Template for wait full page
+        """
+        pass

@@ -1,5 +1,6 @@
 from page_objects.feedback_page import FeedbackPage
 
+
 def test_errors_on_empty_fields(feedback_page: FeedbackPage):
     feedback_page.submit_button.click()
 
