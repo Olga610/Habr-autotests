@@ -1,9 +1,7 @@
 from page_objects.feedback_page import FeedbackPage
 
-def test_errors_on_empty_fields(feedback_page):
-    page: FeedbackPage = feedback_page
-
-    page.submit_button.click()
+def test_errors_on_empty_fields(feedback_page: FeedbackPage):
+    feedback_page.submit_button.click()
 
     checks = [
         feedback_page.email_error_message.is_displayed(),
@@ -13,8 +11,12 @@ def test_errors_on_empty_fields(feedback_page):
 
     assert all(checks), f'Some errors are not shown: {checks}'
 
-def test_number_of_feedback_subject(feedback_page):
-    pass
+
+def test_number_of_feedback_subjects(feedback_page: FeedbackPage):
+    expected = 9
+    actual = feedback_page.count_subjects()
+
+    assert actual == expected, f'Wrong subjects number: {actual}'
 
 
 def test_change_subject(feedback_page):

@@ -20,3 +20,12 @@ class FeedbackPage(HabrBase):
     @property
     def personal_agreement_error_message(self):
         return self.webdriver.find_element(*agreement_error)
+
+    @property
+    def subject(self):
+        return Select(self.webdriver.find_element(*subject))
+
+    def count_subjects(self):
+        elements = self.subject.options
+
+        return len(elements)
